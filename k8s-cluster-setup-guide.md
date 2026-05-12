@@ -28,7 +28,7 @@
 | Master Node | t3.small — 2 vCPU, 2 GB RAM |
 | Worker Node | t3.micro — 1 vCPU, 1 GB RAM |
 
-> **⚠️ Note:** t3.micro has only ~497 MB available RAM. Suitable for learning — keep workloads light.
+> **Note:** t3.micro has only ~497 MB available RAM. Suitable for learning — keep workloads light.
 
 ---
 
@@ -59,7 +59,7 @@ Create two separate security groups before launching instances.
 | All traffic | All | k8s-master-sg | Calico CNI pod traffic |
 | All traffic | All | k8s-worker-sg | Calico CNI pod traffic (self) |
 
-> **⚠️ Outbound:** Allow ALL traffic (`0.0.0.0/0`) on **both** security groups.  
+> **Outbound:** Allow ALL traffic (`0.0.0.0/0`) on **both** security groups.  
 > The CNI All-traffic rules are critical — without them pods cannot communicate across nodes.
 
 ---
@@ -91,7 +91,7 @@ sudo apt install -y containerd.io
 # Do NOT install docker-ce — k8s only needs containerd
 ```
 
-### Step 2 — Configure containerd for Kubernetes ⚠️ CRITICAL
+### Step 2 — Configure containerd for Kubernetes CRITICAL
 
 > Docker's default containerd uses `cgroupfs`. Kubernetes requires **systemd** cgroup driver. Missing this step breaks `kubeadm init`.
 
@@ -168,7 +168,7 @@ sudo apt-mark hold kubelet kubeadm kubectl   # prevent accidental upgrades
 sudo systemctl enable --now kubelet
 ```
 
-### ✅ Verification Checklist — Run on BOTH Nodes
+### Verification Checklist — Run on BOTH Nodes
 
 ```bash
 sudo systemctl status containerd --no-pager      # active (running)
@@ -213,7 +213,7 @@ sudo kubeadm init \
 # Takes 2-3 minutes
 ```
 
-> **⚠️ IMPORTANT:** Save the `kubeadm join` command printed at the bottom!  
+> **IMPORTANT:** Save the `kubeadm join` command printed at the bottom!  
 > `pod-network-cidr=192.168.0.0/16` is required for Calico — do not change this value.
 
 ### Step 9 — Set Up kubectl Access
@@ -493,4 +493,4 @@ sudo rm -rf /etc/cni/net.d $HOME/.kube
 
 ---
 
-> ✅ Cluster setup complete. Both nodes Ready. Kubernetes v1.35.3 running on Ubuntu 24.04 with Calico CNI.
+>  Cluster setup complete. Both nodes Ready. Kubernetes v1.35.3 running on Ubuntu 24.04 with Calico CNI.
